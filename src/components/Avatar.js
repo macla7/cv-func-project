@@ -1,48 +1,34 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
-class Avatar extends Component {
-  constructor(props) {
-    super(props);
+function Avatar() {
+  const [src, setSrc] = useState();
 
-    this.state = {
-      src: "",
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleDel = this.handleDel.bind(this);
+  function handleChange(e) {
+    setSrc(e.target.value);
   }
 
-  handleChange(e) {
-    this.setState({
-      src: e.target.value,
-    });
+  function handleDel() {
+    setSrc("");
   }
 
-  handleDel() {
-    this.setState({
-      src: "",
-    });
-  }
-  render() {
-    if (this.state.src) {
-      return (
-        <div className="avatarTile">
-          <img src={this.state.src} alt="avatar" />
-          <button onClick={this.handleDel}>🗑</button>
-        </div>
-      );
-    } else {
-      return (
-        <div className="avatarTile">
-          <input
-            type="text"
-            placeholder="Image src for avatar.."
-            value={this.state.src}
-            onChange={this.handleChange}
-          />
-        </div>
-      );
-    }
+  if (src) {
+    return (
+      <div className="avatarTile">
+        <img src={src} alt="avatar" />
+        <button onClick={handleDel}>🗑</button>
+      </div>
+    );
+  } else {
+    return (
+      <div className="avatarTile">
+        <input
+          type="text"
+          placeholder="Image src for avatar.."
+          value={src}
+          onChange={handleChange}
+        />
+      </div>
+    );
   }
 }
 

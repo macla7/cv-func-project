@@ -2,47 +2,39 @@ import React, { Component } from "react";
 import Editable from "./Editable";
 import DateRange from "./DateRange";
 
-class ExperienceItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleDel = this.handleDel.bind(this);
+function ExperienceItem(props) {
+  function handleDel() {
+    props.handleDel(props.id);
   }
 
-  handleDel() {
-    this.props.handleDel(this.props.id);
-  }
+  return (
+    <div className="eduAndExpItem">
+      <Editable
+        type="input"
+        hasDelete={false}
+        tag="h3"
+        placeholder="Workplace.."
+        editing={true}
+      />
+      <DateRange />
+      <Editable
+        type="input"
+        hasDelete={false}
+        tag="div"
+        placeholder="Position.."
+        editing={true}
+      />
+      <Editable
+        type="textarea"
+        hasDelete={false}
+        tag="div"
+        placeholder="Description of Skills.."
+        editing={true}
+      />
 
-  render() {
-    return (
-      <div className="eduAndExpItem">
-        <Editable
-          type="input"
-          hasDelete={false}
-          tag="h3"
-          placeholder="Workplace.."
-          editing={true}
-        />
-        <DateRange />
-        <Editable
-          type="input"
-          hasDelete={false}
-          tag="div"
-          placeholder="Position.."
-          editing={true}
-        />
-        <Editable
-          type="textarea"
-          hasDelete={false}
-          tag="div"
-          placeholder="Description of Skills.."
-          editing={true}
-        />
-
-        <button onClick={this.handleDel}>🗑</button>
-      </div>
-    );
-  }
+      <button onClick={handleDel}>🗑</button>
+    </div>
+  );
 }
 
 export default ExperienceItem;

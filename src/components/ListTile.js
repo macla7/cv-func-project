@@ -1,58 +1,43 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import uniqid from "uniqid";
 
-class ListTile extends Component {
-  constructor(props) {
-    super(props);
+function ListTile(props) {
+  const [items, setItems] = useState([]);
 
-    this.state = {
-      items: [],
-    };
-
-    this.handleNewItem = this.handleNewItem.bind(this);
-    this.handleDeleteItem = this.handleDeleteItem.bind(this);
+  function handleNewItem() {
+    setItems([...items, uniqid()]);
   }
 
-  handleNewItem() {
-    this.setState({
-      items: [...this.state.items, uniqid()],
-    });
-  }
-
-  handleDeleteItem(key) {
-    this.setState({
-      items: this.state.items.filter((item) => {
+  function handleDeleteItem(key) {
+    setItems(
+      this.state.items.filter((item) => {
         return item !== key;
-      }),
-    });
-  }
-
-  render() {
-    const { items } = this.state;
-
-    const arrItems = items.map((item, i) => {
-      return (
-        <this.props.itemType
-          type="input"
-          key={item}
-          id={item}
-          handleDel={this.handleDeleteItem}
-          hasDelete={true}
-          tag={this.props.tag}
-          editing={true}
-          number={i}
-        />
-      );
-    });
-
-    return (
-      <section className="listTile">
-        <h2>{this.props.title}</h2>
-        <div className="tile-arr">{arrItems}</div>
-        <button onClick={this.handleNewItem}>+</button>
-      </section>
+      })
     );
   }
+
+  const arrItems = items.map((item, i) => {
+    return (
+      <props.itemType
+        type="input"
+        key={item}
+        id={item}
+        handleDel={handleDeleteItem}
+        hasDelete={true}
+        tag={props.tag}
+        editing={true}
+        number={i}
+      />
+    );
+  });
+
+  return (
+    <section className="listTile">
+      <h2>{props.title}</h2>
+      <div className="tile-arr">{arrItems}</div>
+      <button onClick={handleNewItem}>+</button>
+    </section>
+  );
 }
 
 export default ListTile;
